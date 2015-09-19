@@ -6,19 +6,17 @@
 
 package entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Avenash
  * @param <T>
- * @param <PK>
  */
 public interface GenericDao<T> {      
     void create(T t);
-    T find(T t);
-    List<T> findAll();
     void update(T t);
     void delete(T t);
+    //T find(T t);
+    List<T> findAll();
 }
