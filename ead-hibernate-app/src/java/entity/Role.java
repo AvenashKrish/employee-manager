@@ -34,4 +34,9 @@ public class Role {
         this.title = title;
     }
 
+    @Override
+    public String toString() {
+        return "ID - " + this.roleId + " : " + "Title - " + this.title;
+    }
+
 }
