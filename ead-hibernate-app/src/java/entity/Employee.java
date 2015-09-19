@@ -5,9 +5,6 @@
  */
 package entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  *
  * @author Avenash
@@ -16,19 +13,19 @@ public class Employee {
 
     private int employeeId;
     private String name;
-    private int roleId;
-    private Set tasks;
+    private Role role;
+    //private Set tasks;
 
     public Employee() {
-        tasks = new HashSet();
+        //tasks = new HashSet();
     }
 
-    public void addHat(Task task) {
-        this.tasks.add(task);
+    public void addTask(Task task) {
+        //this.tasks.add(task);
     }
 
-    public void removeHat(Task task) {
-        this.tasks.remove(task);
+    public void removeTask(Task task) {
+        // this.tasks.remove(task);
     }
 
     public int getEmployeeId() {
@@ -47,20 +44,19 @@ public class Employee {
         this.name = name;
     }
 
-    public int getRoleId() {
-        return roleId;
+//    public Set getTasks() {
+//        return tasks;
+//    }
+//
+//    public void setTasks(Set tasks) {
+//        this.tasks = tasks;
+//    }
+
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
-
-    public Set getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Set tasks) {
-        this.tasks = tasks;
-    }
-
 }

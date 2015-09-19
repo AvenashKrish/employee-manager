@@ -7,5 +7,10 @@
     <property name="hibernate.connection.url">jdbc:derby://localhost:1527/employeemanager</property>
     <property name="hibernate.connection.username">app</property>
     <property name="hibernate.connection.password">app</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping resource="role.hbm.xml"/>
+    <mapping resource="employee.hbm.xml"/>
+    <mapping resource="task.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
