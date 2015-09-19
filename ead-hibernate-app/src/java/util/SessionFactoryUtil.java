@@ -19,12 +19,12 @@ public class SessionFactoryUtil {
 
     static {
         try {
-// Create the SessionFactory from standard (hibernate.cfg.xml)
-// config file.
+            // Create the SessionFactory from standard (hibernate.cfg.xml)
+            // config file.
             sessionFactory = new AnnotationConfiguration().configure()
                     .buildSessionFactory();
         } catch (Throwable ex) {
-// Log the exception.
+            // Log the exception.
             System.err.println("Initial SessionFactory creation failed."
                     + ex);
             throw new ExceptionInInitializerError(ex);
@@ -53,7 +53,7 @@ public class SessionFactoryUtil {
      * This would return the current open session or if this does not exist,
      * will create a new session
      *     
-* @return the session
+     * @return the session
      */
     public static Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
