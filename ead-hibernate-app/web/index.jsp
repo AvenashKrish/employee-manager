@@ -23,13 +23,15 @@
            <h2>Menu</h2>
            
             <ul>
-                <li><a href="PostCustomer">Add Customer</a></li>
-                <li><a href="ListCustomer">View Customers</a></li>
-                <li><a href="PostOrder">Create Order</a></li>
-                <li><a href="ListOrder">View Orders</a></li>
+                <li><a href="RoleManager.jsp">Manage Employee Roles</a></li>
+                <li><a href="EmployeeManager.jsp">Manage Employees</a></li>
+<!--                <li><a href="PostOrder">Create Order</a></li>
+                <li><a href="ListOrder">View Orders</a></li>-->
             </ul>
 
         </div>
-        <footer><hr><p>Assignment 2 - Enterprise Application Development 2015</p></footer>
+        <footer>
+            <hr><p>Assignment 2 - Enterprise Application Development 2015</p>
+        </footer>
     </body>
 </html>
