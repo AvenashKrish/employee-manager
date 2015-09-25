@@ -26,15 +26,13 @@
 
             <%
                 Role role = null;
-                boolean isUpdate = false;
-
                 GenericDaoImpl<Role> dao = new GenericDaoImpl<Role>(Role.class);
 
                 String roleId = request.getParameter("roleId");
                 String roleTitle = request.getParameter("roleTitle");
                 String roleCreateCommand = request.getParameter("roleCreateCommand");
                 String roleUpdateCommand = request.getParameter("roleUpdateCommand");
-                String roleSingleDeleteCommand = request.getParameter("roleSingleUpdateCommand");
+                String roleSingleDeleteCommand = request.getParameter("roleSingleDeleteCommand");
                 String roleSingleSelectCommand = request.getParameter("roleSingleSelectCommand");
 
                 if ((roleSingleSelectCommand != null) && (roleId != null)) {
@@ -42,15 +40,24 @@
                     for (Role item : allRoles) {
                         if (item.getRoleId() == Integer.parseInt(roleId)) {
                             role = item;
+                            System.out.println(role.toString());
                         }
                     }
                 }
 
                 if ((roleSingleDeleteCommand != null) && (roleId != null)) {
-
+                    List<Role> allRoles = dao.findAll();
+                    for (Role item : allRoles) {
+                        if (item.getRoleId() == Integer.parseInt(roleId)) {
+                            role = item;
+                            System.out.println(role.toString());
+                            dao.delete(role);
+                        }
+                    }
                 }
 
-                if ((role == null) && (roleId != null) && (roleTitle != null)) {
+                if ((roleId != null) && (roleTitle != null)) {
+                    System.out.println("Creating Object");
                     role = new Role();
                     role.setRoleId(Integer.parseInt(roleId));
                     role.setTitle(roleTitle);
@@ -58,28 +65,45 @@
 
                 if (role != null) {
                     if (roleCreateCommand != null) {
+                        System.out.println("Executing Create");
                         dao.create(role);
                     } else if (roleUpdateCommand != null) {
+                        System.out.println("Executing Update");
                         dao.update(role);
                     }
                 }
             %>
 
-            <form method="POST" action="RoleManager.jsp">
+            <form>
                 <table>
                     <tr>
                         <td>Role ID</td>                        
-                        <td><input type="text" name="roleId" placeholder="(auto)" disabled value="<% if (role != null) role.getRoleId(); %>"></td>
+                        <td><input type="text" name="roleId" placeholder="(auto)" readonly value="<% if (role != null) {
+                                out.print(role.getRoleId());
+                            } else {
+                                out.print("");
+                            } %>"></td>
                     </tr>
                     <tr>
                         <td>Title</td>
-                        <td><input type="text" name="roleTitle" required value="<% if (role != null) role.getTitle(); %>"> </td>
+                        <td><input type="text" name="roleTitle" required value="<% if (role != null) {
+                                out.print(role.getTitle());
+                            } else {
+                                out.print("");
+                            } %>"> </td>
                     </tr>
                     <tr>
                         <td>
-                            <!--<input type="Reset" value="New">-->
-                            <input type="submit" name="roleCreateCommand" value="Create">
-                            <input type="submit" name="roleUpdateCommand" value="Update">
+                            <!--<input type="Reset" value="New">-->                            
+                            <input type="submit" name="<% if (role != null) {
+                                out.print("roleUpdateCommand");
+                            } else {
+                                out.print("roleCreateCommand");
+                            } %>" value="<% if (role != null) {
+                               out.print("Update");
+                            } else {
+                                out.print("Create");
+                            } %>">
                         </td>
                         <td>
                         </td>
@@ -100,7 +124,7 @@
                         for (Iterator iter = dao.findAll().iterator(); iter.hasNext();) {
                             Role element = (Role) iter.next();
                             out.println("<tr>");
-                            out.println("   <form method='POST' action='RoleManager.jsp'>");
+                            out.println("   <form>");
                             out.println("       <td>" + element.getRoleId() + "<input type='hidden' name='roleId' value='"
                                     + element.getRoleId() + "'>" + "</td>");
                             out.println("       <td>" + element.getTitle() + "</td>");
