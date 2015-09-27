@@ -6,6 +6,5 @@
             <generator class="increment"/>
         </id>
         <property column="DESCRIPTION" name="description"/>
-        <many-to-one name="employee" column="EMPLOYEEID" class="entity.Employee" not-null="true"/>        
     </class>
 </hibernate-mapping>
