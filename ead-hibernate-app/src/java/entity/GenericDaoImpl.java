@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -17,20 +18,14 @@ import util.SessionFactoryUtil;
  * @author Avenash
  * @param <T>
  */
-public class GenericDaoImpl<T> implements GenericDao<T> {
+public class GenericDaoImpl implements GenericDao {
 
-    private Class<T> type;
+    public GenericDaoImpl() {
 
-    private GenericDaoImpl() {
-
-    }
-
-    public GenericDaoImpl(Class<T> type) {
-        this.type = type;
     }
 
     @Override
-    public void create(T t) {
+    public void create(Object t) {
         Transaction tx = null;
         Session session = SessionFactoryUtil.getCurrentSession();
         try {
@@ -52,7 +47,7 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
     }
 
     @Override
-    public void update(T t) {
+    public void update(Object t) {
         Transaction tx = null;
         Session session = SessionFactoryUtil.getCurrentSession();
         try {
@@ -74,7 +69,7 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
     }
 
     @Override
-    public void delete(T t) {
+    public void delete(Object t) {
         Transaction tx = null;
         Session session = SessionFactoryUtil.getCurrentSession();
         try {
@@ -94,24 +89,15 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
             }
         }
     }
-    
+
     @Override
-    public List<T> findAll() {
+    public List findAll(Class clazz) {
         Transaction tx = null;
         Session session = SessionFactoryUtil.getCurrentSession();
         try {
             tx = session.beginTransaction();
-            List entities = session.createCriteria(this.type).list();
-            //System.out.println("*** Start ***");
-            for (Iterator iter = entities.iterator(); iter.hasNext();) {
-                T element = (T) iter.next();
-                //System.out.println(element);
-            }
-            //System.out.println("*** End ***");
-            tx.commit();
-
+            List entities = session.createCriteria(clazz).list();            
             return entities;
-
         } catch (HibernateException e) {
             if (tx != null && tx.isActive()) {
                 try {
@@ -124,6 +110,27 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
             }
         }
 
+        return null;
+    }
+
+    @Override
+    public Object find(Class clazz, int id) {
+        Transaction tx = null;
+        Session session = SessionFactoryUtil.getCurrentSession();
+        try {
+            return session.get(clazz, id);
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) {
+                try {
+                    // Second try catch as the rollback could fail as well
+                    tx.rollback();
+                } catch (HibernateException e1) {
+                    System.out.println("Error rolling back transaction");
+                }
+                // throw again the first exception
+                throw e;
+            }
+        }
         return null;
     }
 
