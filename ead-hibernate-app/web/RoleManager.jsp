@@ -29,7 +29,7 @@
             
             <%
                 Role role = null;
-                GenericDaoImpl<Role> dao = new GenericDaoImpl<Role>(Role.class);
+                GenericDaoImpl dao = new GenericDaoImpl();
 
                 String roleId = request.getParameter("roleId");
                 String roleTitle = request.getParameter("roleTitle");
@@ -39,7 +39,7 @@
                 String roleSingleSelectCommand = request.getParameter("roleSingleSelectCommand");
 
                 if ((roleSingleSelectCommand != null) && (roleId != null)) {
-                    List<Role> allRoles = dao.findAll();
+                    List<Role> allRoles = dao.findAll(Role.class);
                     for (Role item : allRoles) {
                         if (item.getRoleId() == Integer.parseInt(roleId)) {
                             role = item;
@@ -49,15 +49,18 @@
                 }
 
                 if ((roleSingleDeleteCommand != null) && (roleId != null)) {
-                    List<Role> allRoles = dao.findAll();
-                    for (Role item : allRoles) {
-                        if (item.getRoleId() == Integer.parseInt(roleId)) {
-                            role = item;
-                            System.out.println(role.toString());
-                            dao.delete(role);
-                            role = null;
-                        }
-                    }
+//                    List<Role> allRoles = dao.findAll(Role.class);
+//                    for (Role item : allRoles) {
+//                        if (item.getRoleId() == Integer.parseInt(roleId)) {
+//                            role = item;
+//                            System.out.println(role.toString());
+//                            dao.delete(role);
+//                            role = null;
+//                        }
+//                    }
+                    role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
+                    dao.delete(role);
+                    role = null;
                 }
 
                 if (roleCreateCommand != null) {
@@ -121,7 +124,7 @@
                         <th></th>
                     </tr>
                     <%
-                        for (Iterator iter = dao.findAll().iterator(); iter.hasNext();) {
+                        for (Iterator iter = dao.findAll(Role.class).iterator(); iter.hasNext();) {
                             Role element = (Role) iter.next();
                             out.println("<tr>");
                             out.println("   <form>");
