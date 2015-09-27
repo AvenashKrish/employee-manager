@@ -24,7 +24,8 @@
            
             <ul>
                 <li><a href="RoleManager.jsp">Employee Roles</a></li>
-                <li><a href="EmployeeManager.jsp">Employees</a></li>
+                <li><a href="EmployeeManager.jsp">Employee Form</a></li>
+                <li><a href="EmployeeList.jsp">Employee List</a></li>
                 <li><a href="TaskManager.jsp">Assigned Tasks</a></li>
             </ul>
 

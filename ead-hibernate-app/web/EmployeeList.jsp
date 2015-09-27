@@ -1,6 +1,6 @@
 <%-- 
-    Document   : TaskManager
-    Created on : Sep 26, 2015, 11:56:14 AM
+    Document   : EmployeeList
+    Created on : Sep 27, 2015, 5:33:02 PM
     Author     : Avenash
 --%>
 
@@ -17,10 +17,8 @@
             <a href="index.jsp"><h1>Employee Manager Application</h1></a>            
         </div>
         <div class="page-content">      
-            <h2>Manage Roles</h2>            
-            <a href="RoleManager.jsp">Add New Record</a>
-            <br />
-            <br />
+            <h2>Employee List</h2>         
+            
         </div>
         <footer>
             <hr>
