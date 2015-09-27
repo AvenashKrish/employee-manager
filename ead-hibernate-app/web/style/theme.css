@@ -35,9 +35,10 @@ a,
 .h6 {
     font-family: 'Open Sans', helvetica, arial, sans-serif;
 }
-a:hover {
+a{
     text-decoration: none;
 }
+
 h1 {
     color: #4d5b76;
     font-size: 3em;

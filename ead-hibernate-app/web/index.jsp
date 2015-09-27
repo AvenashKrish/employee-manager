@@ -23,10 +23,9 @@
            <h2>Menu</h2>
            
             <ul>
-                <li><a href="RoleManager.jsp">Manage Employee Roles</a></li>
-                <li><a href="EmployeeManager.jsp">Manage Employees</a></li>
-<!--                <li><a href="PostOrder">Create Order</a></li>
-                <li><a href="ListOrder">View Orders</a></li>-->
+                <li><a href="RoleManager.jsp">Employee Roles</a></li>
+                <li><a href="EmployeeManager.jsp">Employees</a></li>
+                <li><a href="TaskManager.jsp">Assigned Tasks</a></li>
             </ul>
 
         </div>

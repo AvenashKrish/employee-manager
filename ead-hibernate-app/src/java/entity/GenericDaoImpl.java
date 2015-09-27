@@ -102,12 +102,12 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         try {
             tx = session.beginTransaction();
             List entities = session.createCriteria(this.type).list();
-            System.out.println("*** Start ***");
+            //System.out.println("*** Start ***");
             for (Iterator iter = entities.iterator(); iter.hasNext();) {
                 T element = (T) iter.next();
-                System.out.println(element);
+                //System.out.println(element);
             }
-            System.out.println("*** End ***");
+            //System.out.println("*** End ***");
             tx.commit();
 
             return entities;
