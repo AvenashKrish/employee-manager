@@ -55,6 +55,7 @@
                             role = item;
                             System.out.println(role.toString());
                             dao.delete(role);
+                            role = null;
                         }
                     }
                 }
@@ -63,12 +64,13 @@
                     role = new Role();
                     role.setTitle(roleTitle);
                     dao.create(role);
+                    role = null;
                 } else if (roleUpdateCommand != null) {
                     role = new Role();
                     role.setRoleId(Integer.parseInt(roleId));
                     role.setTitle(roleTitle);
                     dao.update(role);
-
+                    role = null;
                 }
             %>
 
