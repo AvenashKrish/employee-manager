@@ -19,11 +19,14 @@
     </head>
     <body>
         <div class="header">
-            <h1>Employee Manager Application</h1>
+            <a href="index.jsp"><h1>Employee Manager Application</h1></a>            
         </div>
         <div class="page-content">      
-            <h2>Manage Roles</h2>
-
+            <h2>Manage Roles</h2>            
+            <a href="RoleManager.jsp">Add New Record</a>
+            <br />
+            <br />
+            
             <%
                 Role role = null;
                 GenericDaoImpl<Role> dao = new GenericDaoImpl<Role>(Role.class);
@@ -56,21 +59,16 @@
                     }
                 }
 
-                if ((roleId != null) && (roleTitle != null)) {
-                    System.out.println("Creating Object");
+                if (roleCreateCommand != null) {
+                    role = new Role();
+                    role.setTitle(roleTitle);
+                    dao.create(role);
+                } else if (roleUpdateCommand != null) {
                     role = new Role();
                     role.setRoleId(Integer.parseInt(roleId));
                     role.setTitle(roleTitle);
-                }
+                    dao.update(role);
 
-                if (role != null) {
-                    if (roleCreateCommand != null) {
-                        System.out.println("Executing Create");
-                        dao.create(role);
-                    } else if (roleUpdateCommand != null) {
-                        System.out.println("Executing Update");
-                        dao.update(role);
-                    }
                 }
             %>
 
@@ -96,14 +94,14 @@
                         <td>
                             <!--<input type="Reset" value="New">-->                            
                             <input type="submit" name="<% if (role != null) {
-                                out.print("roleUpdateCommand");
-                            } else {
-                                out.print("roleCreateCommand");
-                            } %>" value="<% if (role != null) {
-                               out.print("Update");
-                            } else {
-                                out.print("Create");
-                            } %>">
+                                    out.print("roleUpdateCommand");
+                                } else {
+                                    out.print("roleCreateCommand");
+                                } %>" value="<% if (role != null) {
+                                    out.print("Update");
+                                } else {
+                                    out.print("Create");
+                                } %>">
                         </td>
                         <td>
                         </td>
