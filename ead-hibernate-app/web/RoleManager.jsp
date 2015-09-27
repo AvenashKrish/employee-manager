@@ -28,8 +28,9 @@
             <br />
             
             <%
-                Role role = null;
                 GenericDaoImpl dao = new GenericDaoImpl();
+
+                Role role = null;
 
                 String roleId = request.getParameter("roleId");
                 String roleTitle = request.getParameter("roleTitle");
@@ -39,25 +40,10 @@
                 String roleSingleSelectCommand = request.getParameter("roleSingleSelectCommand");
 
                 if ((roleSingleSelectCommand != null) && (roleId != null)) {
-                    List<Role> allRoles = dao.findAll(Role.class);
-                    for (Role item : allRoles) {
-                        if (item.getRoleId() == Integer.parseInt(roleId)) {
-                            role = item;
-                            System.out.println(role.toString());
-                        }
-                    }
+                    role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
                 }
 
                 if ((roleSingleDeleteCommand != null) && (roleId != null)) {
-//                    List<Role> allRoles = dao.findAll(Role.class);
-//                    for (Role item : allRoles) {
-//                        if (item.getRoleId() == Integer.parseInt(roleId)) {
-//                            role = item;
-//                            System.out.println(role.toString());
-//                            dao.delete(role);
-//                            role = null;
-//                        }
-//                    }
                     role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
                     dao.delete(role);
                     role = null;
