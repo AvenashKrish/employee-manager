@@ -19,7 +19,7 @@
     <body>
 
         <%
-            GenericDaoImpl<Employee> dao = new GenericDaoImpl<Employee>(Employee.class);
+            GenericDaoImpl dao = new GenericDaoImpl();
         %>
 
         <div class="header">
@@ -37,7 +37,7 @@
                 </tr>
                 
                 <%
-                    for (Iterator iter = dao.findAll().iterator(); iter.hasNext();) {
+                    for (Iterator iter = dao.findAll(Employee.class).iterator(); iter.hasNext();) {
                         Employee element = (Employee) iter.next();
                         out.println("<tr>");
                         out.println("   <form>");
