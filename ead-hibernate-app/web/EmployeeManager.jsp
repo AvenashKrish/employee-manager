@@ -143,7 +143,11 @@
                                 <%                                    for (Iterator iter = dao.findAll(Role.class).iterator();
                                             iter.hasNext();) {
                                         Role element = (Role) iter.next();
-                                        out.println("<option value='" + element.getRoleId() + "'>" + element.getTitle() + "</option>");
+                                        String x = "";
+                                        if ((employee != null) && (element.getRoleId() == employee.getRole().getRoleId())) {
+                                            x = "selected";
+                                        }
+                                        out.println("<option value='" + element.getRoleId() + "' " + x + " >" + element.getTitle() + "</option>");
                                     }
 
                                 %>
@@ -179,7 +183,7 @@
 
                                         count++;
                                     }
-                                    
+
                                     out.println("</div>");
                                     out.println("<br />");
                                     out.println("<input type='button' value='  +  ' id='addButton'>");
@@ -193,8 +197,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="submit" name="employeeCreateCommand" value="Create">
-                            <input type="submit" name="employeeUpdateCommand" value="Update">
+                            <input type="submit" name="<% if (employee != null) {
+                                    out.print("employeeUpdateCommand");
+                                } else {
+                                    out.print("employeeCreateCommand");
+                                }%>" value="<% if (employee != null) {
+                                        out.print("Update");
+                                    } else {
+                                        out.print("Create");
+                                    }%>">
                         </td>
                         <td>
                         </td>

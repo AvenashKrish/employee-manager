@@ -14,12 +14,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manage Roles - Employee Manager Application</title>        
+        <title>Manage Roles - Human Resource Application</title>        
         <link rel="stylesheet" type="text/css" href="style/theme.css">        
     </head>
     <body>
         <div class="header">
-            <a href="index.jsp"><h1>Employee Manager Application</h1></a>            
+            <a href="index.jsp"><h1>Human Resource Application</h1></a>            
         </div>
         <div class="page-content">      
             <h2>Manage Roles</h2>            
@@ -55,8 +55,7 @@
                     dao.create(role);
                     role = null;
                 } else if (roleUpdateCommand != null) {
-                    role = new Role();
-                    role.setRoleId(Integer.parseInt(roleId));
+                    role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
                     role.setTitle(roleTitle);
                     dao.update(role);
                     role = null;
