@@ -36,18 +36,18 @@
                 String roleTitle = request.getParameter("roleTitle");
                 String roleCreateCommand = request.getParameter("roleCreateCommand");
                 String roleUpdateCommand = request.getParameter("roleUpdateCommand");
-                String roleSingleDeleteCommand = request.getParameter("roleSingleDeleteCommand");
+//                String roleSingleDeleteCommand = request.getParameter("roleSingleDeleteCommand");
                 String roleSingleSelectCommand = request.getParameter("roleSingleSelectCommand");
 
                 if ((roleSingleSelectCommand != null) && (roleId != null)) {
                     role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
                 }
 
-                if ((roleSingleDeleteCommand != null) && (roleId != null)) {
-                    role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
-                    dao.delete(role);
-                    role = null;
-                }
+//                if ((roleSingleDeleteCommand != null) && (roleId != null)) {
+//                    role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
+//                    dao.delete(role);
+//                    role = null;
+//                }
 
                 if (roleCreateCommand != null) {
                     role = new Role();
@@ -118,7 +118,7 @@
                                     + element.getRoleId() + "'>" + "</td>");
                             out.println("       <td>" + element.getTitle() + "</td>");
                             out.println("       <td>" + "<input type='submit' name='roleSingleSelectCommand' value='Select'>" + "</td>");
-                            out.println("       <td>" + "<input type='submit' name='roleSingleDeleteCommand' value='Delete'>" + "</td>");
+//                            out.println("       <td>" + "<input type='submit' name='roleSingleDeleteCommand' value='Delete'>" + "</td>");
                             out.println("   </form>");
                             out.println("</tr>");
                         }
