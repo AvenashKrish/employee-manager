@@ -46,7 +46,7 @@
                 String employeeUpdateCommand = request.getParameter("employeeUpdateCommand");
                 String employeeSingleSelectCommand = request.getParameter("employeeSingleSelectCommand");
 
-                Enumeration parameters = request.getParameterNames();
+//                Enumeration parameters = request.getParameterNames();
 
                 if ((employeeSingleSelectCommand != null) && (employeeId != null)) {
                     employee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
@@ -58,14 +58,14 @@
                     employee.setName(employeeName);
                     employee.setRole(selectedRole);
 
-                    while (parameters.hasMoreElements()) {
-                        String name = (String) parameters.nextElement();
-                        if (name.startsWith("taskDesc")) {
-                            Task t = new Task();
-                            t.setDescription(request.getParameter(name));
-                            employee.addTask(t);
-                        }
-                    }
+//                    while (parameters.hasMoreElements()) {
+//                        String name = (String) parameters.nextElement();
+//                        if (name.startsWith("taskDesc")) {
+//                            Task t = new Task();
+//                            t.setDescription(request.getParameter(name));
+//                            employee.addTask(t);
+//                        }
+//                    }
 
                     dao.create(employee);
                     employee = null;
@@ -76,41 +76,41 @@
                     employee.setName(employeeName);
                     employee.setRole(selectedRole);
 
-                    List taskIds = new ArrayList();
-                    List taskDescs = new ArrayList();
-                    List<Task> tasks = new ArrayList<Task>();
-
-                    while (parameters.hasMoreElements()) {
-                        String name = (String) parameters.nextElement();
-                        if (name.startsWith("taskId")) {
-                            taskIds.add(name);
-                        }
-                    }
-
-                    while (parameters.hasMoreElements()) {
-                        String name = (String) parameters.nextElement();
-                        if (name.startsWith("taskDesc")) {
-                            taskDescs.add(name);
-                        }
-                    }
-
-                    Iterator iter = taskIds.iterator();
-
-                    while (iter.hasNext()) {
-                        String element = (String) iter.next();
-
-                        for (Iterator iter2 = taskDescs.iterator(); iter2.hasNext();) {
-                            String desc = (String) iter2.next();
-
-                            if (element.charAt(element.length() - 1) == desc.charAt(desc.length() - 1)) {
-                                Task t = (Task) dao.find(Task.class, Integer.parseInt(element));
-                                t.setDescription(desc);
-                                tasks.add(t);
-                                break;
-                            }
-                        }
-
-                    }
+//                    List taskIds = new ArrayList();
+//                    List taskDescs = new ArrayList();
+//                    List<Task> tasks = new ArrayList<Task>();
+//
+//                    while (parameters.hasMoreElements()) {
+//                        String name = (String) parameters.nextElement();
+//                        if (name.startsWith("taskId")) {
+//                            taskIds.add(name);
+//                        }
+//                    }
+//
+//                    while (parameters.hasMoreElements()) {
+//                        String name = (String) parameters.nextElement();
+//                        if (name.startsWith("taskDesc")) {
+//                            taskDescs.add(name);
+//                        }
+//                    }
+//
+//                    Iterator iter = taskIds.iterator();
+//
+//                    while (iter.hasNext()) {
+//                        String element = (String) iter.next();
+//
+//                        for (Iterator iter2 = taskDescs.iterator(); iter2.hasNext();) {
+//                            String desc = (String) iter2.next();
+//
+//                            if (element.charAt(element.length() - 1) == desc.charAt(desc.length() - 1)) {
+//                                Task t = (Task) dao.find(Task.class, Integer.parseInt(element));
+//                                t.setDescription(desc);
+//                                tasks.add(t);
+//                                break;
+//                            }
+//                        }
+//
+//                    }
 
                     dao.update(employee);
                     employee = null;
@@ -154,7 +154,7 @@
                             </select>                        
                         </td>
                     </tr>
-                    <tr>
+<!--                    <tr>
                         <td>Tasks</td>
                         <td>
                             <%                                if (employee == null) {
@@ -192,9 +192,8 @@
 
                             %>
 
-
                         </td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td>
                             <input type="submit" name="<% if (employee != null) {

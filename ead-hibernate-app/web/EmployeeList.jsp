@@ -37,7 +37,7 @@
             <h2>Employee List</h2>
             <table>
                 <tr>
-                    <th>ID</th>
+                    <th>Employee ID</th>
                     <th>Name</th>
                     <th>Role</th>
                     <th></th>

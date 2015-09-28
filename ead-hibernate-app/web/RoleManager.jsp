@@ -100,10 +100,10 @@
             </form>
             <div>
                 <hr>
-                <h4>Records List</h4>
+                <h4>Role List</h4>
                 <table>
                     <tr>
-                        <th>ID</th>
+                        <th>Role ID</th>
                         <th>Title</th>
                         <th></th>
                         <th></th>

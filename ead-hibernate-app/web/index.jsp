@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="header">
-            <h1>Employee Manager Application</h1>
+            <a href="index.jsp"><h1>Human Resource Application</h1></a>            
         </div>
        <div class="page-content">      
            
@@ -26,7 +26,8 @@
                 <li><a href="RoleManager.jsp">Employee Roles</a></li>
                 <li><a href="EmployeeManager.jsp">Employee Form</a></li>
                 <li><a href="EmployeeList.jsp">Employee List</a></li>
-                <li><a href="TaskManager.jsp">Assigned Tasks</a></li>
+                <li><a href="TaskManager.jsp">Assign Tasks</a></li>
+                <li><a href="TaskList.jsp">Task List</a></li>
             </ul>
 
         </div>
