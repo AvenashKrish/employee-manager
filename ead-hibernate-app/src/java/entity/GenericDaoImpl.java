@@ -90,11 +90,12 @@ public class GenericDaoImpl implements GenericDao {
     @Override
     public List findAll(Class clazz) {
         Transaction tx = null;
+        List entities = null;
         Session session = SessionFactoryUtil.getCurrentSession();
         try {
             tx = session.beginTransaction();
-            List entities = session.createCriteria(clazz).list();            
-            return entities;
+            entities = session.createCriteria(clazz).list();
+            tx.commit();
         } catch (HibernateException e) {
             if (tx != null && tx.isActive()) {
                 try {
@@ -107,7 +108,7 @@ public class GenericDaoImpl implements GenericDao {
             }
         }
 
-        return null;
+        return entities;
     }
 
     @Override
