@@ -116,9 +116,12 @@ public class GenericDaoImpl implements GenericDao {
     @Override
     public Object find(Class clazz, int id) {
         Transaction tx = null;
+        Object element = null;
         Session session = SessionFactoryUtil.getCurrentSession();
         try {
-            return session.get(clazz, id);
+            tx = session.beginTransaction();
+            element = session.get(clazz, id);
+            tx.commit();
         } catch (RuntimeException e) {
             if (tx != null && tx.isActive()) {
                 try {
@@ -131,7 +134,7 @@ public class GenericDaoImpl implements GenericDao {
                 throw e;
             }
         }
-        return null;
+        return element;
     }
 
 }

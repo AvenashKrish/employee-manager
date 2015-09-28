@@ -12,7 +12,7 @@ package entity;
 public class Task {
 
     private int taskId;
-    private Employee employee;
+    private int employeeId;
     private String description;
 
     public Task() {
@@ -27,12 +27,12 @@ public class Task {
         this.taskId = taskId;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public String getDescription() {
