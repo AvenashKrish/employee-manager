@@ -5,8 +5,6 @@
  */
 package entity;
 
-import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -16,7 +14,6 @@ import util.SessionFactoryUtil;
 /**
  *
  * @author Avenash
- * @param <T>
  */
 public class GenericDaoImpl implements GenericDao {
 
