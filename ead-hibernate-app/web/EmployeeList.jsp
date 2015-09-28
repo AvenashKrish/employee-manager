@@ -40,7 +40,7 @@
                     for (Iterator iter = dao.findAll(Employee.class).iterator(); iter.hasNext();) {
                         Employee element = (Employee) iter.next();
                         out.println("<tr>");
-                        out.println("   <form>");
+                        out.println("   <form method='POST' action='EmployeeManager.jsp'>");
                         out.println("       <td>" + element.getEmployeeId() + "<input type='hidden' name='employeeId' value='"
                                 + element.getEmployeeId() + "'>" + "</td>");
                         out.println("       <td>" + element.getName() + "</td>");
