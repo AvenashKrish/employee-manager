@@ -47,7 +47,6 @@
                 String employeeSingleSelectCommand = request.getParameter("employeeSingleSelectCommand");
 
 //                Enumeration parameters = request.getParameterNames();
-
                 if ((employeeSingleSelectCommand != null) && (employeeId != null)) {
                     employee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
                 }
@@ -66,7 +65,6 @@
 //                            employee.addTask(t);
 //                        }
 //                    }
-
                     dao.create(employee);
                     employee = null;
 
@@ -111,7 +109,6 @@
 //                        }
 //
 //                    }
-
                     dao.update(employee);
                     employee = null;
                 }
@@ -140,6 +137,9 @@
                         <td>Role</td>
                         <td>
                             <select name='roleId' style='width: 150px;' required>
+                                
+                                <option value="">-</option>
+
                                 <%                                    for (Iterator iter = dao.findAll(Role.class).iterator();
                                             iter.hasNext();) {
                                         Role element = (Role) iter.next();
@@ -154,46 +154,46 @@
                             </select>                        
                         </td>
                     </tr>
-<!--                    <tr>
-                        <td>Tasks</td>
-                        <td>
-                            <%                                if (employee == null) {
+                    <!--                    <tr>
+                                            <td>Tasks</td>
+                                            <td>
+                    <%                                if (employee == null) {
 
-                                    out.println("<div id='TextBoxesGroup'>");
-                                    out.println("   <div id='TextBoxDiv1'>");
-                                    out.println("       Task 1 - <input type='textbox' id='textbox1' style='width: 200px; ' name='task1' required />");
-                                    out.println("   </div>");
-                                    out.println("</div>");
-                                    out.println("<br />");
-                                    out.println("<input type='button' value='  +  ' id='addButton'>");
-                                    out.println("<input  type ='button' value ='  -  ' id ='removeButton'>");
+                            out.println("<div id='TextBoxesGroup'>");
+                            out.println("   <div id='TextBoxDiv1'>");
+                            out.println("       Task 1 - <input type='textbox' id='textbox1' style='width: 200px; ' name='task1' required />");
+                            out.println("   </div>");
+                            out.println("</div>");
+                            out.println("<br />");
+                            out.println("<input type='button' value='  +  ' id='addButton'>");
+                            out.println("<input  type ='button' value ='  -  ' id ='removeButton'>");
 
-                                } else {
+                        } else {
 
-                                    int count = 1;
-                                    out.println("<div id='TextBoxesGroup'>");
-                                    for (Iterator iter = employee.getTasks().iterator();
-                                            iter.hasNext();) {
-                                        Task element = (Task) iter.next();
+                            int count = 1;
+                            out.println("<div id='TextBoxesGroup'>");
+                            for (Iterator iter = employee.getTasks().iterator();
+                                    iter.hasNext();) {
+                                Task element = (Task) iter.next();
 
-                                        out.println("   <div id='TextBoxDiv" + count + "'>");
-                                        out.println("       Task " + count + " - <input type='textbox' id='textbox1' style='width: 200px; ' name='taskDesc" + count + "' value='" + element.getDescription() + "'required />");
-                                        out.println("       <input type='hidden' name='taskId" + count + "' value='" + element.getTaskId() + "'required />");
-                                        out.println("   </div>");
+                                out.println("   <div id='TextBoxDiv" + count + "'>");
+                                out.println("       Task " + count + " - <input type='textbox' id='textbox1' style='width: 200px; ' name='taskDesc" + count + "' value='" + element.getDescription() + "'required />");
+                                out.println("       <input type='hidden' name='taskId" + count + "' value='" + element.getTaskId() + "'required />");
+                                out.println("   </div>");
 
-                                        count++;
-                                    }
+                                count++;
+                            }
 
-                                    out.println("</div>");
-                                    out.println("<br />");
-                                    out.println("<input type='button' value='  +  ' id='addButton'>");
-                                    out.println("<input  type ='button' value ='  -  ' id ='removeButton'>");
-                                }
+                            out.println("</div>");
+                            out.println("<br />");
+                            out.println("<input type='button' value='  +  ' id='addButton'>");
+                            out.println("<input  type ='button' value ='  -  ' id ='removeButton'>");
+                        }
 
-                            %>
+                    %>
 
-                        </td>
-                    </tr>-->
+                </td>
+            </tr>-->
                     <tr>
                         <td>
                             <input type="submit" name="<% if (employee != null) {

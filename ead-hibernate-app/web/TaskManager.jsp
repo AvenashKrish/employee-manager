@@ -83,6 +83,9 @@
                         <td>Assigned to</td>
                         <td>
                             <select name='employeeId' style='width: 150px;' required>
+                                
+                                <option value="">-</option>
+                                
                                 <%                                    for (Iterator iter = dao.findAll(Employee.class).iterator();
                                             iter.hasNext();) {
                                         Employee element = (Employee) iter.next();
