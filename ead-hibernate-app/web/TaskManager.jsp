@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manage Roles - Human Resource Application</title>        
+        <title>Assign Tasks - Human Resource Application</title>        
         <link rel="stylesheet" type="text/css" href="style/theme.css">        
     </head>
     <body>
@@ -39,8 +39,7 @@
                 String employeeId = request.getParameter("employeeId");
                 String taskCreateCommand = request.getParameter("taskCreateCommand");
                 String taskUpdateCommand = request.getParameter("taskUpdateCommand");
-//                String roleSingleDeleteCommand = request.getParameter("roleSingleDeleteCommand");
-                String taskSingleSelectCommand = request.getParameter("roleSingleSelectCommand");
+                String taskSingleSelectCommand = request.getParameter("taskSingleSelectCommand");
 
                 if ((taskSingleSelectCommand != null) && (taskId != null)) {
                     task = (Task) dao.find(Task.class, Integer.parseInt(taskId));
@@ -53,11 +52,19 @@
                     task.setEmployee(selectedEmployee);
                     dao.create(task);
                     task = null;
+
+                    response.sendRedirect("TaskManager.jsp");
+
                 } else if (taskUpdateCommand != null) {
+                    Employee selectedEmployee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
                     task = (Task) dao.find(Task.class, Integer.parseInt(taskId));
                     task.setDescription(taskDescription);
+                    task.setEmployee(selectedEmployee);
                     dao.update(task);
                     task = null;
+
+                    response.sendRedirect("TaskManager.jsp");
+
                 }
             %>
 
@@ -83,14 +90,14 @@
                         <td>Assigned to</td>
                         <td>
                             <select name='employeeId' style='width: 150px;' required>
-                                
+
                                 <option value="">-</option>
-                                
+
                                 <%                                    for (Iterator iter = dao.findAll(Employee.class).iterator();
                                             iter.hasNext();) {
                                         Employee element = (Employee) iter.next();
                                         String x = "";
-                                        if ((task != null) && (task.getEmployee().getEmployeeId() == element.getEmployeeId())) {
+                                        if ((task != null) && (task.getEmployee() != null) && (task.getEmployee().getEmployeeId() == element.getEmployeeId())) {
                                             x = "selected";
                                         }
                                         out.println("<option value='" + element.getEmployeeId() + "' " + x + " >" + element.getName() + "</option>");
@@ -142,8 +149,8 @@
 //                            out.println("</tr>");
 //                        }
 %>
-        </table>
-    </div>            -->
+                    </table>
+                </div>            -->
         </div>
         <footer>
             <hr>

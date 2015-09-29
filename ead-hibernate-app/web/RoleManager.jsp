@@ -26,7 +26,7 @@
             <a href="RoleManager.jsp">Add New Record</a>
             <br />
             <br />
-            
+
             <%
                 GenericDaoImpl dao = new GenericDaoImpl();
 
@@ -48,17 +48,22 @@
 //                    dao.delete(role);
 //                    role = null;
 //                }
-
                 if (roleCreateCommand != null) {
                     role = new Role();
                     role.setTitle(roleTitle);
                     dao.create(role);
                     role = null;
+
+                    response.sendRedirect("RoleManager.jsp");
+
                 } else if (roleUpdateCommand != null) {
                     role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
                     role.setTitle(roleTitle);
                     dao.update(role);
                     role = null;
+
+                    response.sendRedirect("RoleManager.jsp");
+
                 }
             %>
 
@@ -88,10 +93,10 @@
                                 } else {
                                     out.print("roleCreateCommand");
                                 } %>" value="<% if (role != null) {
-                                    out.print("Update");
-                                } else {
-                                    out.print("Create");
-                                } %>">
+                                        out.print("Update");
+                                    } else {
+                                        out.print("Create");
+                                    } %>">
                         </td>
                         <td>
                         </td>

@@ -19,6 +19,13 @@
         
         <%
             GenericDaoImpl dao = new GenericDaoImpl();
+            
+            String taskId = request.getParameter("taskId");
+            String taskSingleSelectCommand = request.getParameter("taskSingleSelectCommand");
+
+            if ((taskId != null) && (taskSingleSelectCommand != null)){
+                response.sendRedirect("TaskManager.jsp?taskId="+ taskId + "&taskSingleSelectCommand=" + taskSingleSelectCommand);
+            }            
         %>
         
         <div class="header">
@@ -42,8 +49,8 @@
                         out.println("       <td>" + element.getTaskId()+ "<input type='hidden' name='taskId' value='"
                                 + element.getTaskId() + "'>" + "</td>");
                         out.println("       <td>" + element.getDescription() + "</td>");
-                        out.println("       <td>" + element.getEmployee().getName() + "</td>");
-                        out.println("       <td>" + "<input type='submit' name='employeeSingleSelectCommand' value='Select'>" + "</td>");
+                        out.println("       <td>" + ((element.getEmployee() != null) ? element.getEmployee().getName() : "-" ) + "</td>");
+                        out.println("       <td>" + "<input type='submit' name='taskSingleSelectCommand' value='Select'>" + "</td>");
 //                        out.println("       <td>" + "<input type='submit' name='employeeSingleDeleteCommand' value='Delete'>" + "</td>");
                         out.println("   </form>");
                         out.println("</tr>");

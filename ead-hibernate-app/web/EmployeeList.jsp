@@ -4,6 +4,7 @@
     Author     : Avenash
 --%>
 
+<%@page import="entity.Task"%>
 <%@page import="entity.GenericDaoImpl"%>
 <%@page import="entity.Employee"%>
 <%@page import="entity.GenericDao"%>
@@ -23,9 +24,20 @@
 
             String employeeId = request.getParameter("employeeId");
             String employeeSingleSelectCommand = request.getParameter("employeeSingleSelectCommand");
+            String employeeSingleDeleteCommand = request.getParameter("employeeSingleDeleteCommand");
 
-            if ((employeeId != null) && (employeeSingleSelectCommand != null)){
-                response.sendRedirect("EmployeeManager.jsp?employeeId="+ employeeId + "&employeeSingleSelectCommand=" + employeeSingleSelectCommand);
+            if ((employeeId != null) && (employeeSingleSelectCommand != null)) {
+                response.sendRedirect("EmployeeManager.jsp?employeeId=" + employeeId + "&employeeSingleSelectCommand=" + employeeSingleSelectCommand);
+            }
+
+            if ((employeeId != null) && (employeeSingleDeleteCommand != null)) {
+                Employee deletingEmployee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
+                for (Object element : deletingEmployee.getTasks()) {                    
+                    ((Task)element).setEmployee(null);
+                    dao.update(element);
+                }
+                dao.delete(deletingEmployee);
+                response.sendRedirect("EmployeeList.jsp");
             }
 
         %>
@@ -53,7 +65,7 @@
                         out.println("       <td>" + element.getName() + "</td>");
                         out.println("       <td>" + element.getRole().getTitle() + "</td>");
                         out.println("       <td>" + "<input type='submit' name='employeeSingleSelectCommand' value='Select'>" + "</td>");
-//                        out.println("       <td>" + "<input type='submit' name='employeeSingleDeleteCommand' value='Delete'>" + "</td>");
+                        out.println("       <td>" + "<input type='submit' name='employeeSingleDeleteCommand' value='Delete'>" + "</td>");
                         out.println("   </form>");
                         out.println("</tr>");
                     }

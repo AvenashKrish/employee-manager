@@ -6,10 +6,10 @@
             <generator class="increment"/>
         </id>
         <property column="NAME" name="name"/>
-        <many-to-one name="role" column="ROLEID" class="entity.Role" lazy="false" cascade="all" />
-        <set cascade="all" name="tasks" table="TASK" lazy="false">
+        <many-to-one name="role" column="ROLEID" class="entity.Role" lazy="false" cascade="save-update" />
+        <set name="tasks" table="TASK" lazy="false" inverse="true" cascade="save-update" >
             <key column="EMPLOYEEID"/>
-            <one-to-many class="entity.Task"/>
+            <one-to-many class="entity.Task" />
         </set>    
     </class>
 </hibernate-mapping>

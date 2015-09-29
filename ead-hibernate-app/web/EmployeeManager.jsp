@@ -68,6 +68,8 @@
                     dao.create(employee);
                     employee = null;
 
+                    response.sendRedirect("EmployeeManager.jsp");
+
                 } else if (employeeUpdateCommand != null) {
                     Role selectedRole = (Role) dao.find(Role.class, Integer.parseInt(roleId));
                     employee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
@@ -111,6 +113,9 @@
 //                    }
                     dao.update(employee);
                     employee = null;
+
+                    response.sendRedirect("EmployeeManager.jsp");
+
                 }
 
             %>
@@ -137,7 +142,7 @@
                         <td>Role</td>
                         <td>
                             <select name='roleId' style='width: 150px;' required>
-                                
+
                                 <option value="">-</option>
 
                                 <%                                    for (Iterator iter = dao.findAll(Role.class).iterator();

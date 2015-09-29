@@ -244,7 +244,8 @@ label {
     font-size: .75em;
 }
 .page-content {
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     width: 750px;
 }
 footer {

@@ -6,8 +6,8 @@
             <generator class="increment"/>
         </id>
         <property column="DESCRIPTION" name="description"/>
-        <many-to-one name="employee" class="entity.Employee" lazy="false">
-            <column name="EMPLOYEEID" not-null="false" />
+        <many-to-one name="employee" class="entity.Employee" lazy="false" cascade="all" >
+            <column name="EMPLOYEEID" />
         </many-to-one>
     </class>
 </hibernate-mapping>
