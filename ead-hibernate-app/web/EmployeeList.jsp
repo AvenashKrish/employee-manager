@@ -37,7 +37,12 @@
                     dao.update(element);
                 }
                 dao.delete(deletingEmployee);
-                response.sendRedirect("EmployeeList.jsp");
+                //response.sendRedirect("EmployeeList.jsp");
+
+                out.write("<script type='text/javascript'>\n");
+                out.write("alert(' Employee Deleted Successfully ');\n");
+                out.write("setTimeout(function(){window.location.href='EmployeeList.jsp'},1000);");
+                out.write("</script>\n");
             }
 
         %>

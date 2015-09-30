@@ -6,7 +6,7 @@
             <generator class="increment"/>
         </id>
         <property column="DESCRIPTION" name="description"/>
-        <many-to-one name="employee" class="entity.Employee" lazy="false" cascade="all" >
+        <many-to-one name="employee" class="entity.Employee" lazy="false">
             <column name="EMPLOYEEID" />
         </many-to-one>
     </class>

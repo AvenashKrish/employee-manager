@@ -68,7 +68,12 @@
                     dao.create(employee);
                     employee = null;
 
-                    response.sendRedirect("EmployeeManager.jsp");
+                    //response.sendRedirect("EmployeeManager.jsp");
+                    
+                    out.write("<script type='text/javascript'>\n");
+                    out.write("alert(' Employee Created Successfully ');\n");
+                    out.write("setTimeout(function(){window.location.href='EmployeeManager.jsp'},1000);");
+                    out.write("</script>\n");
 
                 } else if (employeeUpdateCommand != null) {
                     Role selectedRole = (Role) dao.find(Role.class, Integer.parseInt(roleId));
@@ -114,7 +119,12 @@
                     dao.update(employee);
                     employee = null;
 
-                    response.sendRedirect("EmployeeManager.jsp");
+                    //response.sendRedirect("EmployeeManager.jsp");
+
+                    out.write("<script type='text/javascript'>\n");
+                    out.write("alert(' Employee Updated Successfully ');\n");
+                    out.write("setTimeout(function(){window.location.href='EmployeeManager.jsp'},1000);");
+                    out.write("</script>\n");
 
                 }
 

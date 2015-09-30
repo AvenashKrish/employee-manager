@@ -54,7 +54,12 @@
                     dao.create(role);
                     role = null;
 
-                    response.sendRedirect("RoleManager.jsp");
+//                    response.sendRedirect("RoleManager.jsp");
+                    
+                    out.write("<script type='text/javascript'>\n");
+                    out.write("alert(' Role Created Successfully ');\n");
+                    out.write("setTimeout(function(){window.location.href='RoleManager.jsp'},1000);");
+                    out.write("</script>\n");
 
                 } else if (roleUpdateCommand != null) {
                     role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
@@ -62,7 +67,12 @@
                     dao.update(role);
                     role = null;
 
-                    response.sendRedirect("RoleManager.jsp");
+                    //response.sendRedirect("RoleManager.jsp");
+                    
+                    out.write("<script type='text/javascript'>\n");
+                    out.write("alert(' Role Updated Successfully ');\n");
+                    out.write("setTimeout(function(){window.location.href='RoleManager.jsp'},1000);");
+                    out.write("</script>\n");
 
                 }
             %>

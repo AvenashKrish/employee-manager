@@ -18,6 +18,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Assign Tasks - Human Resource Application</title>        
         <link rel="stylesheet" type="text/css" href="style/theme.css">        
+
+        <script type="text/javascript">
+            var Msg = '<%=session.getAttribute("getAlert")%>';
+            if (Msg != "null") {
+                function alertName() {
+                    alert("Form has been submitted");
+                }
+            }
+        </script> 
     </head>
     <body>
         <div class="header">
@@ -52,8 +61,14 @@
                     task.setEmployee(selectedEmployee);
                     dao.create(task);
                     task = null;
-
-                    response.sendRedirect("TaskManager.jsp");
+                    
+                    
+                    //response.sendRedirect("TaskManager.jsp");                    
+                   
+                    out.write("<script type='text/javascript'>\n");
+                    out.write("alert(' Task Created Successfully ');\n");
+                    out.write("setTimeout(function(){window.location.href='TaskManager.jsp'},1000);");
+                    out.write("</script>\n");
 
                 } else if (taskUpdateCommand != null) {
                     Employee selectedEmployee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
@@ -63,7 +78,12 @@
                     dao.update(task);
                     task = null;
 
-                    response.sendRedirect("TaskManager.jsp");
+                    //response.sendRedirect("TaskManager.jsp");
+                    
+                    out.write("<script type='text/javascript'>\n");
+                    out.write("alert(' Task Updated Successfully ');\n");
+                    out.write("setTimeout(function(){window.location.href='TaskManager.jsp'},1000);");
+                    out.write("</script>\n");
 
                 }
             %>
@@ -148,9 +168,9 @@
 //                            out.println("   </form>");
 //                            out.println("</tr>");
 //                        }
-%>
-                    </table>
-                </div>            -->
+            %>
+                                </table>
+                            </div>            -->
         </div>
         <footer>
             <hr>
