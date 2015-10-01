@@ -18,11 +18,15 @@
     <body>
         
         <%
+            
+            //Generic Data Access Object Creation
             GenericDaoImpl dao = new GenericDaoImpl();
             
+            //Retreiving of Query String Parameters
             String taskId = request.getParameter("taskId");
             String taskSingleSelectCommand = request.getParameter("taskSingleSelectCommand");
 
+            //Handling of Task Select
             if ((taskId != null) && (taskSingleSelectCommand != null)){
                 response.sendRedirect("TaskManager.jsp?taskId="+ taskId + "&taskSingleSelectCommand=" + taskSingleSelectCommand);
             }            
@@ -39,7 +43,6 @@
                     <th>Description</th>
                     <th>Assigned to</th>
                     <th></th>
-<!--                    <th></th>-->
                 </tr>
 
                 <%                    for (Iterator iter = dao.findAll(Task.class).iterator(); iter.hasNext();) {
@@ -51,7 +54,6 @@
                         out.println("       <td>" + element.getDescription() + "</td>");
                         out.println("       <td>" + ((element.getEmployee() != null) ? element.getEmployee().getName() : "-" ) + "</td>");
                         out.println("       <td>" + "<input type='submit' name='taskSingleSelectCommand' value='Select'>" + "</td>");
-//                        out.println("       <td>" + "<input type='submit' name='employeeSingleDeleteCommand' value='Delete'>" + "</td>");
                         out.println("   </form>");
                         out.println("</tr>");
                     }

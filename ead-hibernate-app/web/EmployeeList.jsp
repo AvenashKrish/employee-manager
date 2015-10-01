@@ -20,16 +20,20 @@
     <body>
 
         <%
+            //Generic Data Access Object Creation
             GenericDaoImpl dao = new GenericDaoImpl();
 
+            //Retreiving Query String Parameters
             String employeeId = request.getParameter("employeeId");
             String employeeSingleSelectCommand = request.getParameter("employeeSingleSelectCommand");
             String employeeSingleDeleteCommand = request.getParameter("employeeSingleDeleteCommand");
 
+            //Handling of Select Employee
             if ((employeeId != null) && (employeeSingleSelectCommand != null)) {
                 response.sendRedirect("EmployeeManager.jsp?employeeId=" + employeeId + "&employeeSingleSelectCommand=" + employeeSingleSelectCommand);
             }
 
+            //Handling of Delete Employee
             if ((employeeId != null) && (employeeSingleDeleteCommand != null)) {
                 Employee deletingEmployee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
                 for (Object element : deletingEmployee.getTasks()) {                    
@@ -37,6 +41,7 @@
                     dao.update(element);
                 }
                 dao.delete(deletingEmployee);
+                
                 //response.sendRedirect("EmployeeList.jsp");
 
                 out.write("<script type='text/javascript'>\n");

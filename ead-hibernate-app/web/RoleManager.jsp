@@ -28,53 +28,60 @@
             <br />
 
             <%
+                //Generic Data Access Object Creation
                 GenericDaoImpl dao = new GenericDaoImpl();
-
                 Role role = null;
 
-                String roleId = request.getParameter("roleId");
-                String roleTitle = request.getParameter("roleTitle");
-                String roleCreateCommand = request.getParameter("roleCreateCommand");
-                String roleUpdateCommand = request.getParameter("roleUpdateCommand");
-//                String roleSingleDeleteCommand = request.getParameter("roleSingleDeleteCommand");
-                String roleSingleSelectCommand = request.getParameter("roleSingleSelectCommand");
+                try {
 
-                if ((roleSingleSelectCommand != null) && (roleId != null)) {
-                    role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
-                }
+                    //Retrieving Query String Parameters
+                    String roleId = request.getParameter("roleId");
+                    String roleTitle = request.getParameter("roleTitle");
+                    String roleCreateCommand = request.getParameter("roleCreateCommand");
+                    String roleUpdateCommand = request.getParameter("roleUpdateCommand");
+                    String roleSingleSelectCommand = request.getParameter("roleSingleSelectCommand");
 
-//                if ((roleSingleDeleteCommand != null) && (roleId != null)) {
-//                    role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
-//                    dao.delete(role);
-//                    role = null;
-//                }
-                if (roleCreateCommand != null) {
-                    role = new Role();
-                    role.setTitle(roleTitle);
-                    dao.create(role);
-                    role = null;
+                    //Handling of Role Select 
+                    if ((roleSingleSelectCommand != null) && (roleId != null)) {
+                        role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
+                    }
 
-//                    response.sendRedirect("RoleManager.jsp");
-                    
+                    //Handling of Role Create / Update
+                    if (roleCreateCommand != null) {
+                        role = new Role();
+                        role.setTitle(roleTitle);
+                        dao.create(role);
+                        role = null;
+
+                        //response.sendRedirect("RoleManager.jsp");
+                        
+                        out.write("<script type='text/javascript'>\n");
+                        out.write("alert(' Role Created Successfully ');\n");
+                        out.write("setTimeout(function(){window.location.href='RoleManager.jsp'},1000);");
+                        out.write("</script>\n");
+
+                    } else if (roleUpdateCommand != null) {
+                        role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
+                        role.setTitle(roleTitle);
+                        dao.update(role);
+                        role = null;
+
+                        //response.sendRedirect("RoleManager.jsp");
+                        
+                        out.write("<script type='text/javascript'>\n");
+                        out.write("alert(' Role Updated Successfully ');\n");
+                        out.write("setTimeout(function(){window.location.href='RoleManager.jsp'},1000);");
+                        out.write("</script>\n");
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                     out.write("<script type='text/javascript'>\n");
-                    out.write("alert(' Role Created Successfully ');\n");
-                    out.write("setTimeout(function(){window.location.href='RoleManager.jsp'},1000);");
+                    out.write("alert(' Error Occured Unexpectedly. Try Again. ');\n");
+                    out.write("setTimeout(function(){window.location.href='index.jsp'},1000);");
                     out.write("</script>\n");
-
-                } else if (roleUpdateCommand != null) {
-                    role = (Role) dao.find(Role.class, Integer.parseInt(roleId));
-                    role.setTitle(roleTitle);
-                    dao.update(role);
-                    role = null;
-
-                    //response.sendRedirect("RoleManager.jsp");
-                    
-                    out.write("<script type='text/javascript'>\n");
-                    out.write("alert(' Role Updated Successfully ');\n");
-                    out.write("setTimeout(function(){window.location.href='RoleManager.jsp'},1000);");
-                    out.write("</script>\n");
-
                 }
+                
             %>
 
             <form>
@@ -97,7 +104,6 @@
                     </tr>
                     <tr>
                         <td>
-                            <!--<input type="Reset" value="New">-->                            
                             <input type="submit" name="<% if (role != null) {
                                     out.print("roleUpdateCommand");
                                 } else {
@@ -132,7 +138,6 @@
                                     + element.getRoleId() + "'>" + "</td>");
                             out.println("       <td>" + element.getTitle() + "</td>");
                             out.println("       <td>" + "<input type='submit' name='roleSingleSelectCommand' value='Select'>" + "</td>");
-//                            out.println("       <td>" + "<input type='submit' name='roleSingleDeleteCommand' value='Delete'>" + "</td>");
                             out.println("   </form>");
                             out.println("</tr>");
                         }

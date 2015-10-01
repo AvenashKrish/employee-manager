@@ -10,18 +10,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Employee Manager Application</title>
-        
+
         <link rel="stylesheet" type="text/css" href="style/theme.css">
- 
+
     </head>
     <body>
         <div class="header">
             <a href="index.jsp"><h1>Human Resource Application</h1></a>            
         </div>
-       <div class="page-content">      
-           
-           <h2>Menu</h2>
-           
+        <div class="page-content">      
+
+            <h2>Menu</h2>
+
             <ul>
                 <li><a href="RoleManager.jsp">Employee Roles</a></li>
                 <li><a href="EmployeeManager.jsp">Employee Form</a></li>

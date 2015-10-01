@@ -35,98 +35,64 @@
             <br />
 
             <%
+                
+                //Generic Data Access Object Creation
                 GenericDaoImpl dao = new GenericDaoImpl();
-
                 Employee employee = null;
 
-                String employeeId = request.getParameter("employeeId");
-                String employeeName = request.getParameter("employeeName");
-                String roleId = request.getParameter("roleId");
-                String employeeCreateCommand = request.getParameter("employeeCreateCommand");
-                String employeeUpdateCommand = request.getParameter("employeeUpdateCommand");
-                String employeeSingleSelectCommand = request.getParameter("employeeSingleSelectCommand");
-
-//                Enumeration parameters = request.getParameterNames();
-                if ((employeeSingleSelectCommand != null) && (employeeId != null)) {
-                    employee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
-                }
-
-                if (employeeCreateCommand != null) {
-                    Role selectedRole = (Role) dao.find(Role.class, Integer.parseInt(roleId));
-                    employee = new Employee();
-                    employee.setName(employeeName);
-                    employee.setRole(selectedRole);
-
-//                    while (parameters.hasMoreElements()) {
-//                        String name = (String) parameters.nextElement();
-//                        if (name.startsWith("taskDesc")) {
-//                            Task t = new Task();
-//                            t.setDescription(request.getParameter(name));
-//                            employee.addTask(t);
-//                        }
-//                    }
-                    dao.create(employee);
-                    employee = null;
-
-                    //response.sendRedirect("EmployeeManager.jsp");
+                try {
                     
+                    //Retreiving Query String Parameters
+                    String employeeId = request.getParameter("employeeId");
+                    String employeeName = request.getParameter("employeeName");
+                    String roleId = request.getParameter("roleId");
+                    String employeeCreateCommand = request.getParameter("employeeCreateCommand");
+                    String employeeUpdateCommand = request.getParameter("employeeUpdateCommand");
+                    String employeeSingleSelectCommand = request.getParameter("employeeSingleSelectCommand");
+
+                    //Handling of Select Employee
+                    if ((employeeSingleSelectCommand != null) && (employeeId != null)) {
+                        employee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
+                    }
+
+                    //Handling of New Employee Creation / Update
+                    if (employeeCreateCommand != null) {
+                        Role selectedRole = (Role) dao.find(Role.class, Integer.parseInt(roleId));
+                        employee = new Employee();
+                        employee.setName(employeeName);
+                        employee.setRole(selectedRole);
+
+                        dao.create(employee);
+                        employee = null;
+
+                        out.write("<script type='text/javascript'>\n");
+                        out.write("alert(' Employee Created Successfully ');\n");
+                        out.write("setTimeout(function(){window.location.href='EmployeeManager.jsp'},1000);");
+                        out.write("</script>\n");
+                        
+                    } else if (employeeUpdateCommand != null) {
+                        Role selectedRole = (Role) dao.find(Role.class, Integer.parseInt(roleId));
+                        employee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
+                        employee.setName(employeeName);
+                        employee.setRole(selectedRole);
+
+                        dao.update(employee);
+                        employee = null;
+
+                        out.write("<script type='text/javascript'>\n");
+                        out.write("alert(' Employee Updated Successfully ');\n");
+                        out.write("setTimeout(function(){window.location.href='EmployeeManager.jsp'},1000);");
+                        out.write("</script>\n");
+                    }
+                    
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                     out.write("<script type='text/javascript'>\n");
-                    out.write("alert(' Employee Created Successfully ');\n");
-                    out.write("setTimeout(function(){window.location.href='EmployeeManager.jsp'},1000);");
+                    out.write("alert(' Error Occured Unexpectedly. Try Again. ');\n");
+                    out.write("setTimeout(function(){window.location.href='index.jsp'},1000);");
                     out.write("</script>\n");
-
-                } else if (employeeUpdateCommand != null) {
-                    Role selectedRole = (Role) dao.find(Role.class, Integer.parseInt(roleId));
-                    employee = (Employee) dao.find(Employee.class, Integer.parseInt(employeeId));
-                    employee.setName(employeeName);
-                    employee.setRole(selectedRole);
-
-//                    List taskIds = new ArrayList();
-//                    List taskDescs = new ArrayList();
-//                    List<Task> tasks = new ArrayList<Task>();
-//
-//                    while (parameters.hasMoreElements()) {
-//                        String name = (String) parameters.nextElement();
-//                        if (name.startsWith("taskId")) {
-//                            taskIds.add(name);
-//                        }
-//                    }
-//
-//                    while (parameters.hasMoreElements()) {
-//                        String name = (String) parameters.nextElement();
-//                        if (name.startsWith("taskDesc")) {
-//                            taskDescs.add(name);
-//                        }
-//                    }
-//
-//                    Iterator iter = taskIds.iterator();
-//
-//                    while (iter.hasNext()) {
-//                        String element = (String) iter.next();
-//
-//                        for (Iterator iter2 = taskDescs.iterator(); iter2.hasNext();) {
-//                            String desc = (String) iter2.next();
-//
-//                            if (element.charAt(element.length() - 1) == desc.charAt(desc.length() - 1)) {
-//                                Task t = (Task) dao.find(Task.class, Integer.parseInt(element));
-//                                t.setDescription(desc);
-//                                tasks.add(t);
-//                                break;
-//                            }
-//                        }
-//
-//                    }
-                    dao.update(employee);
-                    employee = null;
-
-                    //response.sendRedirect("EmployeeManager.jsp");
-
-                    out.write("<script type='text/javascript'>\n");
-                    out.write("alert(' Employee Updated Successfully ');\n");
-                    out.write("setTimeout(function(){window.location.href='EmployeeManager.jsp'},1000);");
-                    out.write("</script>\n");
-
                 }
+
 
             %>
 
@@ -168,47 +134,7 @@
                                 %>
                             </select>                        
                         </td>
-                    </tr>
-                    <!--                    <tr>
-                                            <td>Tasks</td>
-                                            <td>
-                    <%                                if (employee == null) {
-
-                            out.println("<div id='TextBoxesGroup'>");
-                            out.println("   <div id='TextBoxDiv1'>");
-                            out.println("       Task 1 - <input type='textbox' id='textbox1' style='width: 200px; ' name='task1' required />");
-                            out.println("   </div>");
-                            out.println("</div>");
-                            out.println("<br />");
-                            out.println("<input type='button' value='  +  ' id='addButton'>");
-                            out.println("<input  type ='button' value ='  -  ' id ='removeButton'>");
-
-                        } else {
-
-                            int count = 1;
-                            out.println("<div id='TextBoxesGroup'>");
-                            for (Iterator iter = employee.getTasks().iterator();
-                                    iter.hasNext();) {
-                                Task element = (Task) iter.next();
-
-                                out.println("   <div id='TextBoxDiv" + count + "'>");
-                                out.println("       Task " + count + " - <input type='textbox' id='textbox1' style='width: 200px; ' name='taskDesc" + count + "' value='" + element.getDescription() + "'required />");
-                                out.println("       <input type='hidden' name='taskId" + count + "' value='" + element.getTaskId() + "'required />");
-                                out.println("   </div>");
-
-                                count++;
-                            }
-
-                            out.println("</div>");
-                            out.println("<br />");
-                            out.println("<input type='button' value='  +  ' id='addButton'>");
-                            out.println("<input  type ='button' value ='  -  ' id ='removeButton'>");
-                        }
-
-                    %>
-
-                </td>
-            </tr>-->
+                    </tr>                    
                     <tr>
                         <td>
                             <input type="submit" name="<% if (employee != null) {
